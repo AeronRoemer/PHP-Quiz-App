@@ -25,4 +25,3 @@ while  (count($questions) < 10)
     $questions[] = generate_question();
 }
 
-//questions variable is now populated with 10 random questions and answers
