@@ -1,4 +1,5 @@
 <?php
+session_start();
 // initialize questions variable
 $questions = [];
 function generate_question(){
