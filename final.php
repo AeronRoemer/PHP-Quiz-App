@@ -1,6 +1,5 @@
 <?php 
  session_start();
- var_dump($_SESSION['wrongAnswer']);
  $wrongs = array_filter($_SESSION['wrongAnswer']);
  $rights = array_filter($_SESSION['correctAnswer']);
      ?>
@@ -19,15 +18,19 @@
 ?>
 
     <div class="container">
-            <div id="count">
+            <div id="quiz-box">
               <?php
                  //displays numbers right & wrong. 
-                echo "<br><br><h1>Your total:<br>" . sizeof($rights) . " answers correct & " . sizeof($wrongs) . " answers wrong.</h1>";
+                echo "<br><br><h1>Your total:<br><br>" . sizeof($rights) . " answers correct & " . sizeof($wrongs) . " answers wrong.</h1>";
                   echo "<br>";
                  ?>
-                 <a class="btn" href="index.php" role="button">Try Again</a>
+                 <a class="btn" href="index.php" value='<?php
+                 $q_num = 0;
+                 session_destroy(); ?>'
+                 role="button">Try Again</a>
             </div>
     </div>
 </body>
 </html>
 
+<!-- FUTURE? ADD COOKIES -->

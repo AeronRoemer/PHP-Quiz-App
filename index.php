@@ -6,8 +6,6 @@ if (isset($_POST['page'])){
     $q_num = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT);
     if ($q_num >= 10){
         header('Location: final.php');
-        $q_num = 0;
-        session_destroy();
     }
 } else {
 $q_num = 0;
