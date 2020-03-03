@@ -1,6 +1,17 @@
 <?php 
     include('inc/questions.php');
     session_start();
+    //sets session variable basics
+if (isset($_POST['page'])){
+    $q_num = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT);
+    if ($q_num >= 10){
+        header('Location: final.php');
+        $q_num = 0;
+        session_destroy();
+    }
+} else {
+$q_num = 0;
+}
      ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,16 +24,7 @@
 </head>
 <body>
 <?php
-//sets session variable basics
-if (isset($_POST['page'])){
-    $q_num = filter_input(INPUT_POST, 'page', FILTER_VALIDATE_INT);
-    if ($q_num >= 10){
-        $q_num = 0;
-        session_destroy();
-    }
-} else {
-$q_num = 0;
-}
+
 //store session information in two arrays - question location information and answers given. 
 $_SESSION['wrongAnswer'][$q_num-1] = filter_input(INPUT_POST, 'answer', FILTER_VALIDATE_INT);
 $_SESSION['correctAnswer'][$q_num-1] = filter_input(INPUT_POST, 'correctAnswer', FILTER_VALIDATE_INT);
@@ -41,12 +43,13 @@ $rights = array_filter($_SESSION['correctAnswer']);
             <form action="index.php" method="POST">
                 <input type="hidden" name="page" value="<?=$q_num+1?>" />
                 <?php 
+                
                 //creates and randomizes answers buttons.
                    $answers[] = '<input type="submit" class="btn" name="correctAnswer" value="' . $questions[$q_num]['correctAnswer'] . '" />';
                    $answers[] = '<input type="submit" class="btn" name="answer" value="' . $questions[$q_num]['firstIncorrectAnswer'] . '" />';
                    $answers[] = '<input type="submit" class="btn" name="answer" value="' . $questions[$q_num]['secondIncorrectAnswer'] . '" />';
                 shuffle($answers);
-                echo $answers[0] . " " . $answers[1] . " " . $answers[2];
+                echo $answers[0] . " " . $answers[1] . " " . $answers[2]; 
                 ?>
             </form>
             <div id="count">
